@@ -14,6 +14,11 @@ type Goals struct {
 }
 
 func main() {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Привет! Мой API работает. Перейди по ссылке /goals"))
+	})
+
 	// Создаём "меню" (роутер)
 	http.HandleFunc("/goals", func(w http.ResponseWriter, r *http.Request) {
 		// Наши цели
