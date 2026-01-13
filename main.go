@@ -3,8 +3,10 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+	"os"
 )
 
+// Структура для хранения целей
 type Goals struct {
 	Goal         string `json:"goal"`
 	Timeline     string `json:"timeline"`
@@ -32,6 +34,12 @@ func main() {
 		json.NewEncoder(w).Encode(myGoals)
 	})
 
-	println("Сервер запущен! Открой в браузере: http://localhost:8080/goals")
-	http.ListenAndServe(":8080", nil)
+	// Получаем порт от Heroku или используем 8080 локально
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	println("Сервер запущен на порту: " + port)
+	http.ListenAndServe(":"+port, nil)
 }
