@@ -6,7 +6,6 @@ import (
 	"os"
 )
 
-// Структура для хранения целей
 type Goals struct {
 	Goal         string `json:"goal"`
 	Timeline     string `json:"timeline"`
@@ -15,13 +14,6 @@ type Goals struct {
 }
 
 func main() {
-	// Обработчик для главной страницы
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Привет! Мой API работает. Перейди по ссылке /goals"))
-	})
-
-	// Обработчик для /goals
 	http.HandleFunc("/goals", func(w http.ResponseWriter, r *http.Request) {
 		myGoals := Goals{
 			Goal:         "Хочу работать из Бали",
@@ -34,7 +26,6 @@ func main() {
 		json.NewEncoder(w).Encode(myGoals)
 	})
 
-	// Получаем порт от Heroku или используем 8080 локально
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
