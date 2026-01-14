@@ -1,1 +1,1 @@
-web: ./my-first-api
+web: ./main
